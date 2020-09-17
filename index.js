@@ -1,8 +1,10 @@
 const fs = require('fs');
 
-const source = fs.readFileSync('./sanat.txt', 'utf8');
+const wordsFilePath = process.argv[2] || './sanat.txt';
 
-const MatchTime = /^\[(?<hour>\d+):(?<minute>\d+) (?<ampm>AM|PM)\] (?<nick>[a-zö' ]+): (?<word>.*)/i;
+const source = fs.readFileSync(wordsFilePath, 'utf8');
+
+const MatchTime = /^\[(?<hour>\d+):(?<minute>\d+) (?<ampm>AM|PM)\] (?<nick>[a-zö' 0-9]+): (?<word>.*)/i;
 
 const TemplateDocument = (content) => `<!DOCTYPE html>
 <html lang="en">
@@ -51,7 +53,7 @@ const TemplateLine = ({hour, minute, ampm, nick, word}) => {
   return html;
 }
 
-function process(textData) {
+function processText(textData) {
   return '<p>' + textData.split('\n').map(processLine).join('\n') + '(jatkuu...)</p>';
 }
 
@@ -64,6 +66,6 @@ function getParts(line) {
 }
 
 
-const html = TemplateDocument(process(source));
+const html = TemplateDocument(processText(source));
 
 fs.writeFileSync('index.html', html, 'utf8');

@@ -1,6 +1,8 @@
 # Sanatarina
 
-Node.js tool for converting chat logs into a web page.
+Node.js tool for converting word story* chat logs into a web page.
+
+**word story: participants take turns to add a new word into a dedicated channel, forming a collaborative story.*
 
 ## Usage
 

@@ -57,10 +57,19 @@ const TemplateDocument = (content) => `<!DOCTYPE html>
 </html>
 `;
 
+const phraseEnds = ['.', '?', '!']
+
 const TemplateLine = ({hour, minute, ampm, nick, word}) => {
   if(!word) return '';
-  let html = `<span class="word"><span class="word__word" style="color: ${ nickToColor(nick) }">${ word }</span><span class="word__author" style="background-color: ${ nickToColor(nick, true) }">${nick}</span></span>`;
-  if(word && word.slice(-1) === '.') html += '</p><p>';
+  let html = '';
+  if(word && phraseEnds.includes(word[0])) {
+    html += word[0]+'</p><p>';
+    word = word.substr(1)
+  }
+  html += `<span class="word"><span class="word__word" style="color: ${ nickToColor(nick) }">${ word }</span><span class="word__author" style="background-color: ${ nickToColor(nick, true) }">${nick}</span></span>`;
+  if( word && phraseEnds.includes(word.slice(-1)) ) {
+    html += '</p><p>';
+  }
   return html;
 }
 

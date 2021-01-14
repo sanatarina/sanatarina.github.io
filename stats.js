@@ -10,9 +10,17 @@ const processText = source => {
   return source.split('\n')
     .filter(line=>line)
     .map(line=>line.match(MatchTime).groups)
-    .reduce((acc, {nick, word}) => {
-      if(!acc[nick]) acc[nick] = 0
-      acc[nick] += 1
+    .reduce((acc, {nick, word}, index, arr) => {
+      if(!acc[nick]) {
+        acc[nick] = {
+          words: 0,
+          longest: '',
+          shortest: word
+        }
+      }
+      acc[nick].words += 1
+      acc[nick].longest = acc[nick].longest.length < word.length ? word : acc[nick].longest
+      acc[nick].shortest = acc[nick].shortest.length > word.length ? word : acc[nick].shortest
       return acc
     }, {});
 }

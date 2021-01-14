@@ -34,7 +34,7 @@ const TemplateDocument = (content) => `<!DOCTYPE html>
     display: none;
   }
   .word:hover {
-    background-color: yellow;
+    background-color: #e8e8e8;
   }
   .word:hover .word__author {
     display: inline;

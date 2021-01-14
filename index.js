@@ -13,10 +13,17 @@ const TemplateDocument = (content) => `<!DOCTYPE html>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sanatarina</title>
   <style>
+  @font-face {
+    font-family: 'communis';
+    src: url('static/COMMUNIS-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
   body {
     margin: 0;
     font-size: 20px;
-    font-family: sans-serif;
+    font-family: 'communis', sans-serif;
+    letter-spacing: -0.075em;
     line-height: 1.5;
   }
   .content {

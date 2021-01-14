@@ -35,11 +35,15 @@ const TemplateDocument = (content) => `<!DOCTYPE html>
     background: #eee;
     padding: 0.5em;
   }
+  #togglecolors:not(:checked) ~ p .word__word {
+    color: #111 !important;
+  }
   </style>
 </head>
 <body>
   <section class="content">
     <h1>Sanatarina</h1>
+    <input type="checkbox" id="togglecolors"> <label for="togglecolors">Näytä värit</label>
     ${ content }
   </section>
 </body>
@@ -48,7 +52,7 @@ const TemplateDocument = (content) => `<!DOCTYPE html>
 
 const TemplateLine = ({hour, minute, ampm, nick, word}) => {
   if(!word) return '';
-  let html = `<span class="word"><span class="word__word">${ word }</span><span class="word__author">${nick}</span></span>`;
+  let html = `<span class="word"><span class="word__word" style="color: ${ nickToColor(nick) }">${ word }</span><span class="word__author" style="background-color: ${ nickToColor(nick, true) }">${nick}</span></span>`;
   if(word && word.slice(-1) === '.') html += '</p><p>';
   return html;
 }
@@ -63,6 +67,14 @@ function processLine(line) {
 
 function getParts(line) {
   return (line.match(MatchTime) || { groups: {} }).groups;
+}
+
+function nickToColor(nick, background) {
+  return `hsl(${
+    parseInt(nick, 36) % 360
+  }, 75%, ${
+    background ? 75 : 45
+  }%)`;
 }
 
 
